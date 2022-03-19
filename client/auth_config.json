@@ -1,0 +1,6 @@
+{
+  "domain": "mts-dev-01.jp.auth0.com",
+  "client_id": "not yet.......",
+  "audience": "https://api.mts-dev-01/",
+  "redirect_uri": "http://localhost:8080"
+}
