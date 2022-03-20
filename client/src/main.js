@@ -2,6 +2,8 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+// persistent storage
+import storage from './plugins/storage'
 // Api
 import api from './plugins/api'
 // Auth
@@ -12,6 +14,11 @@ const app = createApp(App)
 app.use(api)
 app.use(store)
 app.use(router)
+
+// storage
+app.use(storage, {
+  keys: 'CurrentTenant'
+})
 
 // auth option
 const authOption = { ...authConfig }
