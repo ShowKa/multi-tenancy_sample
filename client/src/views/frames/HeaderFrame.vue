@@ -6,7 +6,7 @@
       class="header__icon"
       :src="iconSource"
       title="ユーザー情報"
-      @click="openUserProfile"
+      @click="openProfile"
     />
   </div>
 </template>
@@ -19,8 +19,8 @@ const $router = useRouter()
 // ref
 const iconSource = ref(null)
 // methods
-const openUserProfile = () => {
-  $router.push({ name: 'UserProfile' })
+const openProfile = () => {
+  $router.push({ name: 'Profile' })
 }
 // life cycle event
 onMounted(async () => {

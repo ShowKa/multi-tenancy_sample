@@ -46,6 +46,12 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
     beforeEnter: routeGuard
   },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: () => import('../views/Profile.vue'),
+    beforeEnter: routeGuard
+  },
 ]
 
 const router = createRouter({
