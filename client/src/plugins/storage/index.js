@@ -51,3 +51,7 @@ export default {
     app.provide('$storage', plugin)
   }
 }
+
+export function useStorage() {
+  return plugin
+}
