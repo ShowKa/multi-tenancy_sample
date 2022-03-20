@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 // persistent storage
-import storage from './plugins/storage'
+import storage, { useStorage } from './plugins/storage'
 // Api
 import api from './plugins/api'
 // Auth
@@ -16,10 +16,17 @@ app.use(store)
 app.use(router)
 
 // storage
-app.use(storage)
+app.use(storage, { keys: ['CurrentOrganization'] })
+const $storage = useStorage()
+
+// organization
+const currentOrganization = $storage.getCurrentOrganization()
 
 // auth option
-const authOption = { ...authConfig }
+const authOption = {
+  ...authConfig,
+  ...(currentOrganization ? { organization: currentOrganization } : null)
+}
 
 // auth
 setupAuth(authOption, callbackRedirect).then((auth) => {
