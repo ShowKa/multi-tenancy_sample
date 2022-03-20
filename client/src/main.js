@@ -16,9 +16,7 @@ app.use(store)
 app.use(router)
 
 // storage
-app.use(storage, {
-  keys: 'CurrentTenant'
-})
+app.use(storage)
 
 // auth option
 const authOption = { ...authConfig }
