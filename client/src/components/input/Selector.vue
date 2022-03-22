@@ -1,5 +1,5 @@
 <template>
-  <select v-model="selectedValue">
+  <select v-model="value">
     <option v-for="data in dataList" :key="data.value" :value="data.value">
       {{ data.name }}
     </option>
@@ -10,7 +10,7 @@
 import { toRefs, defineProps, computed, defineEmits } from 'vue'
 // props
 const props = defineProps({
-  selected: {
+  modelValue: {
     type: String,
     required: false,
     default: ''
@@ -21,14 +21,14 @@ const props = defineProps({
   }
 })
 // data
-const { selected, dataList } = toRefs(props)
+const { modelValue, dataList } = toRefs(props)
 // emit
-const emit = defineEmits(['update:selected'])
+const emit = defineEmits(['update:modelValue'])
 // computed
-const selectedValue = computed({
-  get: () => selected.value,
-  set: value => {
-    emit('update:selected', value)
+const value = computed({
+  get: () => modelValue.value,
+  set: newValue => {
+    emit('update:modelValue', newValue)
   }
 })
 </script>
