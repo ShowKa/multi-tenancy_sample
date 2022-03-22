@@ -40,7 +40,7 @@ spring:
 auth0:
   audience: https://api.mts-dev-01/
   domain: mts-dev-01.jp.auth0.com
-  client-id: ZcXWXBj6FmdjyrQximq2AbBeSBnfoHTq
+  client-id: V0gH6JrlRhTHbob4wuXOkYpY2nZcR0TP
 
 mts:
   file:
