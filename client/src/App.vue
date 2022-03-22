@@ -2,16 +2,26 @@
   <Message class="app__message" />
   <HeaderFrame />
   <BodyFrame class="app__body" />
+  <Modal v-show="!currentOrgIsSetup">
+    <template v-slot:header><br /></template>
+    <template v-slot:body>
+      <Switch />
+    </template>
+    <template v-slot:footer><br /></template>
+  </Modal>
 </template>
 
-<script>
+<script setup>
+import { ref, inject } from 'vue'
+import Modal from '@/components/modal/Modal.vue'
+import Message from '@/components/message/Message.vue'
 import HeaderFrame from '@/views/frames/HeaderFrame.vue'
 import BodyFrame from '@/views/frames/BodyFrame.vue'
-import Message from '@/components/message/Message.vue'
-export default {
-  name: 'App',
-  components: { HeaderFrame, BodyFrame, Message }
-}
+import Switch from '@/views/organization/Switch.vue'
+// inject plugin
+const $current = inject('$currentOrganization')
+// data
+const currentOrgIsSetup = ref($current.get() ? true : false)
 </script>
 
 <style lang="scss">
