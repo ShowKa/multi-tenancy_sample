@@ -9,6 +9,7 @@ import api from './plugins/api'
 // Auth
 import authConfig from '../auth_config.json'
 import { setupAuth } from './plugins/auth'
+import currentOrganizationManager from './plugins/auth/current-organization'
 
 const app = createApp(App)
 app.use(api)
@@ -20,6 +21,11 @@ app.use(storage, { keys: ['CurrentOrganization'] })
 const $storage = useStorage()
 
 // organization
+app.use(currentOrganizationManager, {
+  get: () => $storage.getCurrentOrganization(),
+  set: (value) => $storage.setCurrentOrganization(value),
+  remove: () => $storage.removeCurrentOrganization()
+})
 const currentOrganization = $storage.getCurrentOrganization()
 
 // auth option
@@ -32,6 +38,9 @@ const authOption = {
 setupAuth(authOption, callbackRedirect).then((auth) => {
   app.use(auth)
   app.mount('#app')
+}).catch(e => {
+  $storage.removeCurrentOrganization()
+  throw e
 })
 
 function callbackRedirect(appState) {
