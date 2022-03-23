@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <img class="header__logo" src="../../assets/pics/logo.png" />
+    <OrgAnchor class="header__org-anchor" />
     <img
       v-if="iconSource"
       class="header__icon"
@@ -13,6 +13,7 @@
 <script setup>
 import { ref, inject, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import OrgAnchor from '../organization/Anchor.vue'
 // plugin
 const $auth = inject('$auth')
 const $router = useRouter()
@@ -34,8 +35,13 @@ onMounted(async () => {
   background-color: $color_background;
   box-shadow: 3px 3px 3px $color_shadow;
   height: $header_height;
-  &__logo {
+  &__org-anchor {
+    // display / size
     height: $header_height;
+    line-height: $header_height;
+    // position
+    position: relative;
+    left: 17px;
   }
   &__icon {
     // position
