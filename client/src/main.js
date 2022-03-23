@@ -26,9 +26,9 @@ app.use(currentOrganizationManager, {
   set: (value) => $storage.setCurrentOrganization(value),
   remove: () => $storage.removeCurrentOrganization()
 })
-const currentOrganization = $storage.getCurrentOrganization()
 
 // auth option
+const currentOrganization = $storage.getCurrentOrganization()
 const authOption = {
   ...authConfig,
   ...(currentOrganization ? { organization: currentOrganization } : null),
