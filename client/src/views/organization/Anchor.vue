@@ -11,15 +11,19 @@
 
 <script setup>
 import { inject, onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import Organization from '@/models/Organization'
 import Icon from './SwitchIcon.vue'
 // plugin
 const $current = inject('$currentOrganization')
+const $router = useRouter()
 // data
 const name = ref(null)
 const switchable = ref(false)
 // method
-const goSwitchView = () => {}
+const goSwitchView = () => {
+  $router.push({ name: 'SwitchOrganization' })
+}
 // life cycle event
 onMounted(async () => {
   const orgs = await Organization.getAll()
