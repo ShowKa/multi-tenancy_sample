@@ -2,7 +2,7 @@
   <Message class="app__message" />
   <HeaderFrame />
   <BodyFrame class="app__body" />
-  <Modal v-show="!currentOrgIsSetup">
+  <Modal v-if="isAuthenticated && !currentOrgIsSetup">
     <template v-slot:header><br /></template>
     <template v-slot:body>
       <Switch />
@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-import { ref, inject } from 'vue'
+import { ref, inject, onMounted } from 'vue'
 import Modal from '@/components/modal/Modal.vue'
 import Message from '@/components/message/Message.vue'
 import HeaderFrame from '@/views/frames/HeaderFrame.vue'
@@ -20,8 +20,18 @@ import BodyFrame from '@/views/frames/BodyFrame.vue'
 import Switch from '@/views/organization/Switch.vue'
 // inject plugin
 const $current = inject('$currentOrganization')
+const $auth = inject('$auth')
 // data
 const currentOrgIsSetup = ref($current.get() ? true : false)
+// computed
+const isAuthenticated = $auth.isAuthenticated
+// life cycle event
+onMounted(() => {
+  if (!isAuthenticated.value) {
+    $current.remove()
+    $auth.loginWithRedirect()
+  }
+})
 </script>
 
 <style lang="scss">
