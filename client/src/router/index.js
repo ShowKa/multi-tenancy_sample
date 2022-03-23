@@ -29,7 +29,7 @@ const routes = [
     path: '/',
     name: 'index',
     component: () => import('../views/Home.vue'),
-    // beforeEnter: routeGuard
+    beforeEnter: routeGuard
   },
   {
     path: '/home',

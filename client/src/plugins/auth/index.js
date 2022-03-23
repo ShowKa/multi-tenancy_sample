@@ -16,6 +16,7 @@ async function loginWithPopup() {
   state.popupOpen = true
 
   try {
+    if (beforeLogin) { beforeLogin() }
     await client.loginWithPopup(0)
   } finally {
     state.popupOpen = false
@@ -49,6 +50,7 @@ async function getUserRoles() {
 }
 
 function loginWithRedirect(o) {
+  if (beforeLogin) { beforeLogin() }
   return client.loginWithRedirect(o)
 }
 
@@ -76,6 +78,7 @@ function getTokenWithPopup(o) {
 }
 
 function logout(o) {
+  if (beforeLogout) { beforeLogout() }
   return client.logout(o)
 }
 
@@ -108,7 +111,20 @@ export const useAuth = () => {
   return authPlugin
 }
 
-export const setupAuth = async (options, callbackRedirect) => {
+// optional
+var beforeLogin = null
+var beforeLogout = null
+
+export const setupAuth = async (options = {}, callbackRedirect) => {
+
+  if (options.beforeLogin) {
+    beforeLogin = options.beforeLogin
+    delete options.beforeLogin
+  }
+  if (options.beforeLogout) {
+    beforeLogout = options.beforeLogout
+    delete options.beforeLogout
+  }
 
   client = await createAuth0Client(options)
 

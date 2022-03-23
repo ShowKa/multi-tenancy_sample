@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-import { ref, inject, onMounted } from 'vue'
+import { ref, inject } from 'vue'
 import Modal from '@/components/modal/Modal.vue'
 import Message from '@/components/message/Message.vue'
 import HeaderFrame from '@/views/frames/HeaderFrame.vue'
@@ -25,13 +25,6 @@ const $auth = inject('$auth')
 const currentOrgIsSetup = ref($current.get() ? true : false)
 // computed
 const isAuthenticated = $auth.isAuthenticated
-// life cycle event
-onMounted(() => {
-  if (!isAuthenticated.value) {
-    $current.remove()
-    $auth.loginWithRedirect()
-  }
-})
 </script>
 
 <style lang="scss">

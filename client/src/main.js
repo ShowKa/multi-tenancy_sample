@@ -31,7 +31,10 @@ const currentOrganization = $storage.getCurrentOrganization()
 // auth option
 const authOption = {
   ...authConfig,
-  ...(currentOrganization ? { organization: currentOrganization } : null)
+  ...(currentOrganization ? { organization: currentOrganization } : null),
+  beforeLogin: () => {
+    clearCache()
+  }
 }
 
 // auth
@@ -39,9 +42,11 @@ setupAuth(authOption, callbackRedirect).then((auth) => {
   app.use(auth)
   app.mount('#app')
 }).catch(e => {
-  $storage.removeCurrentOrganization()
+  clearCache()
   throw e
 })
+
+// private function
 
 function callbackRedirect(appState) {
   router.push(
@@ -49,6 +54,10 @@ function callbackRedirect(appState) {
       ? appState.targetUrl
       : '/'
   );
+}
+
+function clearCache() {
+  $storage.removeCurrentOrganization()
 }
 
 export { app }
