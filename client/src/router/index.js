@@ -52,6 +52,12 @@ const routes = [
     component: () => import('../views/Profile.vue'),
     beforeEnter: routeGuard
   },
+  {
+    path: '/organization-switch',
+    name: 'SwitchOrganization',
+    component: () => import('../views/organization/Switch.vue'),
+    beforeEnter: routeGuard
+  },
 ]
 
 const router = createRouter({
