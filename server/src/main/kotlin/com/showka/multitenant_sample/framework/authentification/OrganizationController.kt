@@ -1,5 +1,6 @@
 package com.showka.multitenant_sample.framework.authentification
 
+import com.showka.multitenant_sample.system.authentification.Organization
 import com.showka.multitenant_sample.system.authentification.OrganizationService
 import com.showka.multitenant_sample.system.value.ID
 import org.springframework.beans.factory.annotation.Autowired
@@ -24,7 +25,7 @@ class OrganizationController {
 	fun getAll(@AuthenticationPrincipal token: Jwt): List<Response> {
 		val organizations = service.get(token.subject)
 		return organizations.map {
-			Response(it.id, it.identifierName, it.displayName)
+			Response(it)
 		}
 	}
 
@@ -39,7 +40,7 @@ class OrganizationController {
 		val orgId = "org" + id.value
 		val organization = service.create(orgId, form.displayName)
 		service.addMember(organization.id, token.subject)
-		return Response(organization.id, organization.identifierName, organization.displayName)
+		return Response(organization)
 	}
 
 	companion object {
@@ -47,10 +48,10 @@ class OrganizationController {
 			lateinit var displayName: String
 		}
 
-		class Response(
-			val id: String,
-			val identifierName: String,
-			val displayName: String
-		)
+		class Response(organization: Organization) {
+			val id: String = organization.id
+			val identifierName: String = organization.identifierName
+			val displayName: String = organization.displayName
+		}
 	}
 }
