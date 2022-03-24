@@ -26,10 +26,12 @@ const goSwitchView = () => {
 }
 // life cycle event
 onMounted(async () => {
-  const orgs = await Organization.getAll()
   const currentId = $current.get()
-  name.value = orgs.find(it => it.id === currentId).displayName
-  switchable.value = orgs.length > 1
+  if (currentId) {
+    const orgs = await Organization.getAll()
+    name.value = orgs.find(it => it.id === currentId).displayName
+    switchable.value = orgs.length > 1
+  }
 })
 </script>
 
