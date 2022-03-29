@@ -58,6 +58,17 @@ const routes = [
     component: () => import('../views/organization/Switch.vue'),
     beforeEnter: routeGuard
   },
+  {
+    path: '/invite',
+    name: 'Invite',
+    component: () => import('../views/invitation/Invite.vue'),
+    beforeEnter: routeGuard
+  },
+  {
+    path: '/authorize',
+    name: 'Auhtorize',
+    component: () => import('../views/invitation/Authorize.vue')
+  },
 ]
 
 const router = createRouter({
