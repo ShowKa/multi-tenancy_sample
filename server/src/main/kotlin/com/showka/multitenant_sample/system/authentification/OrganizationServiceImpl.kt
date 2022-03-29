@@ -49,4 +49,13 @@ class OrganizationServiceImpl : OrganizationService {
 		val getOne = managementApi.organizations().getByName(identifiedName).execute()
 		return Organization(getOne.id, getOne.name, getOne.displayName)
 	}
+
+	override fun updateDisplayName(organizationId: String, newName: String): Organization {
+		val got = managementApi.organizations().get(organizationId).execute()
+		val updated = Auth0Org()
+		updated.name = got.name
+		updated.displayName = newName
+		managementApi.organizations().update(organizationId, updated).execute()
+		return Organization(organizationId, updated.name, updated.displayName)
+	}
 }
