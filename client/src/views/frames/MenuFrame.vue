@@ -1,7 +1,10 @@
 <template>
   <div class="menus">
-    <Menu label="ホーム" path="/home">
+    <Menu label="home" path="/home">
       <HomeIcon icon-size="26" />
+    </Menu>
+    <Menu label="setting" path="/setting">
+      <SettingIcon icon-size="26" />
     </Menu>
   </div>
 </template>
@@ -9,6 +12,7 @@
 <script setup>
 import Menu from './Menu.vue'
 import HomeIcon from '@/components/icon/HomeIcon.vue'
+import SettingIcon from '@/components/icon/SettingIcon.vue'
 </script>
 
 <style lang="scss">

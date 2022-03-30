@@ -15,7 +15,7 @@ export default {
   run: client => {
     const mock = new MockAdapter(client)
     mock.onGet('/organizations').reply(200, [organization01, organization02])
-    mock.onGet('/organizations/org_ZsZwfWxN6ZT02w2h').reply(200, organization01)
+    mock.onGet('/organizations/mine').reply(200, organization01)
     mock.onPost('/organizations').reply(200, organization01)
     mock.onPatch('/organizations').reply(200, organization01)
   }

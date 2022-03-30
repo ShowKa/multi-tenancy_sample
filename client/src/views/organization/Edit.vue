@@ -7,14 +7,12 @@
 </template>
 
 <script setup>
-import { inject, onMounted, reactive, defineEmits } from 'vue'
+import { onMounted, reactive, defineEmits } from 'vue'
 import Organization from '@/models/Organization'
 import SubmitButton from '@/components/input/SubmitButton.vue'
 import { showSuccess } from '@/components/message/useMessage'
 // emit
 const $emit = defineEmits(['done'])
-// inject plugin
-const $current = inject('$currentOrganization')
 // data
 const form = reactive({
   displayName: ''
@@ -28,8 +26,7 @@ const save = async () => {
 }
 // life cycle event
 onMounted(async () => {
-  const current = $current.get()
-  const org = await Organization.get(current)
+  const org = await Organization.getMine()
   form.displayName = org.displayName
 })
 </script>

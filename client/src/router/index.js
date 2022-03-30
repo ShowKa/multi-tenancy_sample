@@ -69,6 +69,11 @@ const routes = [
     name: 'Auhtorize',
     component: () => import('../views/invitation/Authorize.vue')
   },
+  {
+    path: '/setting',
+    name: 'SettingTop',
+    component: () => import('../views/setting/Top.vue')
+  },
 ]
 
 const router = createRouter({

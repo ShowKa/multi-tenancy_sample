@@ -7,8 +7,8 @@ export default {
     const res = await Api.get(url)
     return res.data
   },
-  async get(id) {
-    const url = `organizations/${id}`
+  async getMine() {
+    const url = `organizations/mine`
     const res = await Api.get(url)
     return res.data
   },
