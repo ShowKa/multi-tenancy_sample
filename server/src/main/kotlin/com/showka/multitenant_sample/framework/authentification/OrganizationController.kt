@@ -24,10 +24,22 @@ class OrganizationController {
 	@PreAuthorize("isAuthenticated()")
 	@ResponseBody
 	fun getAll(@AuthenticationPrincipal token: Jwt): List<Response> {
-		val organizations = service.get(token.subject)
+		val organizations = service.getBelongsTo(token.subject)
 		return organizations.map {
 			Response(it)
 		}
+	}
+
+	/**
+	 * get organization
+	 */
+	@GetMapping("/mine")
+	@PreAuthorize("isAuthenticated()")
+	@ResponseBody
+	fun getMine(@AuthenticationPrincipal token: Jwt): Response {
+		val orgId = token.getOrganizationId()!!
+		val org = service.get(orgId)
+		return Response(org)
 	}
 
 	/**

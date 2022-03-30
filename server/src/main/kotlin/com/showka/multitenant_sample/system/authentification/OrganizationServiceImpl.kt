@@ -29,7 +29,12 @@ class OrganizationServiceImpl : OrganizationService {
 		return Organization(created.id, created.name, created.displayName)
 	}
 
-	override fun get(userId: String): List<Organization> {
+	override fun get(organizationId: String): Organization {
+		val organization = managementApi.organizations().get(organizationId).execute()
+		return Organization(organization.id, organization.name, organization.displayName)
+	}
+
+	override fun getBelongsTo(userId: String): List<Organization> {
 		val organizations = managementApi.users().getOrganizations(userId, null).execute().items
 		return organizations.map {
 			Organization(it.id, it.name, it.displayName)
