@@ -6,12 +6,14 @@
       <div>{{ orgName }}</div>
       <a class="setting-top__link" @click="goEdit = true">edit</a>
     </div>
+    <label>members</label>
+    <MemberList />
     <Modal v-if="goEdit">
       <template v-slot:header>
         edit organization
       </template>
       <template v-slot:body>
-        <Edit @done="onDone($event)" />
+        <EditOrganization @done="onDone($event)" />
       </template>
       <template v-slot:footer>
         <a class="setting-top__link" @click="goEdit = false">cancel</a>
@@ -24,7 +26,8 @@
 import { onMounted, ref } from 'vue'
 import Organization from '@/models/Organization'
 import Modal from '@/components/modal/Modal.vue'
-import Edit from '@/views/organization/Edit.vue'
+import EditOrganization from '@/views/organization/Edit.vue'
+import MemberList from './MemberList.vue'
 // data
 const orgName = ref('')
 const goEdit = ref(false)
