@@ -9,4 +9,14 @@ class TenantID : ID {
 	constructor(id: Long) : super(id)
 	constructor(id: String) : super(id)
 
+	companion object {
+		// FIXME
+		fun generateByOrgId(orgId: String): TenantID {
+			return TenantID(orgId.hashCode())
+		}
+
+		fun generateEmpty(): TenantID {
+			return TenantID(0)
+		}
+	}
 }
