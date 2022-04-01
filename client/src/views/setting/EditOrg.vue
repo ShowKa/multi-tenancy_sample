@@ -4,7 +4,7 @@
       edit organization
     </template>
     <template v-slot:body>
-      <EditOrganization @done="onDone($event)" />
+      <EditOrganization @done="onDone" />
     </template>
     <template v-slot:footer>
       <a class="org-modal__link" @click="show = false">cancel</a>

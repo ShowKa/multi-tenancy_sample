@@ -3,28 +3,31 @@
     <div class="setting-top__title">Setting and Members</div>
     <div>
       <label>organization</label>
-      <div>{{ orgName }}</div>
+      <div>{{ organization.displayName }}</div>
       <a class="setting-top__link" @click="edit">edit</a>
     </div>
     <label>members</label>
     <MemberList />
     <a class="setting-top__link" @click="invite">inviete a member</a>
+    <!-- popup modal window -->
     <EditOrg ref="EditOrgView" />
     <Invite ref="InviteView" />
   </div>
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
-import Organization from '@/models/Organization'
+import { computed, ref } from 'vue'
+import { useStore } from 'vuex'
 import Invite from '@/views/invitation/Invite.vue'
 import MemberList from './MemberList.vue'
 import EditOrg from './EditOrg.vue'
-// data
-const orgName = ref('')
-// reffer component
+// inject plugin
+const $store = useStore()
+// ref component
 const EditOrgView = ref(null)
 const InviteView = ref(null)
+// computed
+const organization = computed(() => $store.state.organization.current)
 // method
 const edit = () => {
   EditOrgView.value.open()
@@ -32,11 +35,6 @@ const edit = () => {
 const invite = () => {
   InviteView.value.open()
 }
-// life cycle event
-onMounted(async () => {
-  const org = await Organization.getMine()
-  orgName.value = org.displayName
-})
 </script>
 
 <style lang="scss" scoped>

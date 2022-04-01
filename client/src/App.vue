@@ -20,6 +20,7 @@
 
 <script setup>
 import { ref, inject, onMounted } from 'vue'
+import { useStore } from 'vuex'
 import Organization from '@/models/Organization'
 import Modal from '@/components/modal/Modal.vue'
 import Message from '@/components/message/Message.vue'
@@ -30,6 +31,7 @@ import Register from '@/views/organization/Register.vue'
 // inject plugin
 const $current = inject('$currentOrganization')
 const $auth = inject('$auth')
+const $store = useStore()
 // data
 const currentOrgIsSetup = ref($current.get() ? true : false)
 // computed
@@ -40,6 +42,7 @@ const goRegister = ref(false)
 onMounted(async () => {
   const orgs = await Organization.getAll()
   goRegister.value = orgs.length == 0
+  $store.dispatch('organization/updateCurrent')
 })
 </script>
 
