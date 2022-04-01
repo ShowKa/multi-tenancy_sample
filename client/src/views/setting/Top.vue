@@ -4,34 +4,33 @@
     <div>
       <label>organization</label>
       <div>{{ orgName }}</div>
-      <a class="setting-top__link" @click="goEdit = true">edit</a>
+      <a class="setting-top__link" @click="edit">edit</a>
     </div>
-    <Modal v-if="goEdit">
-      <template v-slot:header>
-        edit organization
-      </template>
-      <template v-slot:body>
-        <Edit @done="onDone($event)" />
-      </template>
-      <template v-slot:footer>
-        <a class="setting-top__link" @click="goEdit = false">cancel</a>
-      </template>
-    </Modal>
+    <label>members</label>
+    <MemberList />
+    <a class="setting-top__link" @click="invite">inviete a member</a>
+    <EditOrg ref="EditOrgView" />
+    <Invite ref="InviteView" />
   </div>
 </template>
 
 <script setup>
 import { onMounted, ref } from 'vue'
 import Organization from '@/models/Organization'
-import Modal from '@/components/modal/Modal.vue'
-import Edit from '@/views/organization/Edit.vue'
+import Invite from '@/views/invitation/Invite.vue'
+import MemberList from './MemberList.vue'
+import EditOrg from './EditOrg.vue'
 // data
 const orgName = ref('')
-const goEdit = ref(false)
+// reffer component
+const EditOrgView = ref(null)
+const InviteView = ref(null)
 // method
-const onDone = org => {
-  orgName.value = org.displayName
-  goEdit.value = false
+const edit = () => {
+  EditOrgView.value.open()
+}
+const invite = () => {
+  InviteView.value.open()
 }
 // life cycle event
 onMounted(async () => {

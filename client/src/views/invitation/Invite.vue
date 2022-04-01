@@ -13,13 +13,13 @@
       </div>
     </template>
     <template v-slot:footer>
-      <button @click="show = false">cancel</button>
+      <a class="invite__link" @click="show = false">cancel</a>
     </template>
   </Modal>
 </template>
 
 <script setup>
-import { inject, onMounted, reactive, ref } from 'vue'
+import { inject, onMounted, reactive, ref, defineExpose } from 'vue'
 import Invitations from '@/models/Invitations'
 import Modal from '@/components/modal/Modal.vue'
 import SubmitButton from '@/components/input/SubmitButton.vue'
@@ -27,7 +27,7 @@ import { showSuccess } from '@/components/message/useMessage'
 // inject plugtin
 const $auth = inject('$auth')
 // data
-const show = ref(true)
+const show = ref(false)
 const form = reactive({
   inviterName: '',
   inviteeMailAddress: ''
@@ -37,16 +37,27 @@ const register = async () => {
   await Invitations.post(form)
   show.value = false
   showSuccess('you have invited a new member.')
+  form.inviteeMailAddress = ''
+}
+const open = () => {
+  show.value = true
 }
 // life cycle event
 onMounted(async () => {
   const user = await $auth.getUser()
   form.inviterName = user.name
 })
+// export
+defineExpose({
+  open
+})
 </script>
 
 <style lang="scss" scoped>
 .invite {
   @extend %form;
+  &__link {
+    @extend %text_link;
+  }
 }
 </style>
