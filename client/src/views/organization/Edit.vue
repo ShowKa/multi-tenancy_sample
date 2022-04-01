@@ -8,10 +8,10 @@
 
 <script setup>
 import { onMounted, reactive, defineEmits } from 'vue'
+import { useStore } from 'vuex'
 import Organization from '@/models/Organization'
 import SubmitButton from '@/components/input/SubmitButton.vue'
 import { showSuccess } from '@/components/message/useMessage'
-import { useStore } from 'vuex'
 // emit
 const $emit = defineEmits(['done'])
 // inject plugin
@@ -25,6 +25,7 @@ const save = async () => {
   // resiter and reload
   const org = await Organization.patch(form)
   $store.commit('organization/current', org)
+  $store.dispatch('organization/updateAll')
   $emit('done', org)
   showSuccess('organization updated.')
 }

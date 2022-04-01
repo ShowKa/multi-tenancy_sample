@@ -32,18 +32,23 @@ const $current = inject('$currentOrganization')
 const $auth = inject('$auth')
 const $store = useStore()
 // data
-const currentOrgIsSetup = ref($current.get() ? true : false)
+const goRegister = ref(false)
+const goSwitch = ref(false)
 // computed
 const isAuthenticated = $auth.isAuthenticated
-const goSwitch = ref(isAuthenticated.value && !currentOrgIsSetup.value)
 const orgs = computed(() => $store.state.organization.all)
-const goRegister = ref(false)
 // lefcycle event
 onMounted(async () => {
+  // all orgs
   await $store.dispatch('organization/updateAll')
   goRegister.value = orgs.value.length == 0
-  if (currentOrgIsSetup.value) {
+  // current org
+  const current = $current.get() != null ? true : false
+  if (current) {
     $store.dispatch('organization/updateCurrent')
+  }
+  if (!goRegister.value) {
+    goSwitch.value = isAuthenticated.value && !current
   }
 })
 </script>
