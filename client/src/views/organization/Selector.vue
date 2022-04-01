@@ -3,9 +3,11 @@
 </template>
 
 <script setup>
+import { computed, defineEmits, defineProps, toRefs } from 'vue'
+import { useStore } from 'vuex'
 import Selector from '@/components/input/Selector.vue'
-import { computed, onMounted, ref, defineEmits, defineProps, toRefs } from 'vue'
-import Organization from '@/models/Organization'
+// inject plugin
+const $store = useStore()
 // props
 const props = defineProps({
   modelValue: {
@@ -18,7 +20,6 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue'])
 // data
 const { modelValue } = toRefs(props)
-const dataList = ref([])
 // computed
 const value = computed({
   get: () => modelValue.value,
@@ -26,16 +27,15 @@ const value = computed({
     emit('update:modelValue', newValue)
   }
 })
-// life cycle
-onMounted(async () => {
-  const orgs = await Organization.getAll()
-  orgs.forEach(o => {
-    dataList.value.push({
+const orgs = computed(() => $store.state.organization.all)
+const dataList = computed(() =>
+  orgs.value.map(o => {
+    return {
       name: o.displayName,
       value: o.id
-    })
+    }
   })
-})
+)
 </script>
 
 <style lang="scss" scoped></style>

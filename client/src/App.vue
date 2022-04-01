@@ -19,8 +19,8 @@
 </template>
 
 <script setup>
-import { ref, inject, onMounted } from 'vue'
-import Organization from '@/models/Organization'
+import { ref, inject, computed, onMounted } from 'vue'
+import { useStore } from 'vuex'
 import Modal from '@/components/modal/Modal.vue'
 import Message from '@/components/message/Message.vue'
 import HeaderFrame from '@/views/frames/HeaderFrame.vue'
@@ -30,16 +30,26 @@ import Register from '@/views/organization/Register.vue'
 // inject plugin
 const $current = inject('$currentOrganization')
 const $auth = inject('$auth')
+const $store = useStore()
 // data
-const currentOrgIsSetup = ref($current.get() ? true : false)
+const goRegister = ref(false)
+const goSwitch = ref(false)
 // computed
 const isAuthenticated = $auth.isAuthenticated
-const goSwitch = ref(isAuthenticated.value && !currentOrgIsSetup.value)
-const goRegister = ref(false)
+const orgs = computed(() => $store.state.organization.all)
 // lefcycle event
 onMounted(async () => {
-  const orgs = await Organization.getAll()
-  goRegister.value = orgs.length == 0
+  // all orgs
+  await $store.dispatch('organization/updateAll')
+  goRegister.value = orgs.value.length == 0
+  // current org
+  const current = $current.get() != null ? true : false
+  if (current) {
+    $store.dispatch('organization/updateCurrent')
+  }
+  if (!goRegister.value) {
+    goSwitch.value = isAuthenticated.value && !current
+  }
 })
 </script>
 
