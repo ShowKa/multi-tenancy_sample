@@ -19,9 +19,8 @@
 </template>
 
 <script setup>
-import { ref, inject, onMounted } from 'vue'
+import { ref, inject, computed, onMounted } from 'vue'
 import { useStore } from 'vuex'
-import Organization from '@/models/Organization'
 import Modal from '@/components/modal/Modal.vue'
 import Message from '@/components/message/Message.vue'
 import HeaderFrame from '@/views/frames/HeaderFrame.vue'
@@ -37,12 +36,15 @@ const currentOrgIsSetup = ref($current.get() ? true : false)
 // computed
 const isAuthenticated = $auth.isAuthenticated
 const goSwitch = ref(isAuthenticated.value && !currentOrgIsSetup.value)
+const orgs = computed(() => $store.state.organization.all)
 const goRegister = ref(false)
 // lefcycle event
 onMounted(async () => {
-  const orgs = await Organization.getAll()
-  goRegister.value = orgs.length == 0
-  $store.dispatch('organization/updateCurrent')
+  await $store.dispatch('organization/updateAll')
+  goRegister.value = orgs.value.length == 0
+  if (currentOrgIsSetup.value) {
+    $store.dispatch('organization/updateCurrent')
+  }
 })
 </script>
 

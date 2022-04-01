@@ -4,6 +4,7 @@ import Organization from '@/models/Organization'
 const organization = {
   namespaced: true,
   state: () => ({
+    all: [],
     current: {}
   }),
   // get computed values
@@ -12,6 +13,9 @@ const organization = {
   // modify state
   // commit mutations
   mutations: {
+    all(state, all) {
+      state.all = all
+    },
     current(state, organization) {
       state.current = organization
     },
@@ -19,6 +23,10 @@ const organization = {
   // modify with async method
   // dispatch actions
   actions: {
+    async updateAll({ commit }) {
+      const all = await Organization.getAll()
+      commit('all', all);
+    },
     async updateCurrent({ commit }) {
       const mine = await Organization.getMine()
       commit('current', mine);

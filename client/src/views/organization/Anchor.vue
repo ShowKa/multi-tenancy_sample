@@ -10,29 +10,21 @@
 </template>
 
 <script setup>
-import { inject, onMounted, ref } from 'vue'
+import { computed } from 'vue'
 import { useRouter } from 'vue-router'
-import Organization from '@/models/Organization'
+import { useStore } from 'vuex'
 import Icon from './SwitchIcon.vue'
-// plugin
-const $current = inject('$currentOrganization')
 const $router = useRouter()
-// data
-const name = ref(null)
-const switchable = ref(false)
+const $store = useStore()
+// computed
+const current = computed(() => $store.state.organization.current)
+const orgs = computed(() => $store.state.organization.all)
+const name = computed(() => (current.value ? current.value.displayName : ''))
+const switchable = computed(() => orgs.value.length > 1)
 // method
 const goSwitchView = () => {
   $router.push({ name: 'SwitchOrganization' })
 }
-// life cycle event
-onMounted(async () => {
-  const currentId = $current.get()
-  if (currentId) {
-    const orgs = await Organization.getAll()
-    name.value = orgs.find(it => it.id === currentId).displayName
-    switchable.value = orgs.length > 1
-  }
-})
 </script>
 
 <style lang="scss" scoped>
