@@ -1,6 +1,7 @@
 package com.showka.multitenant_sample.system.tenant
 
 import com.showka.multitenant_sample.system.value.ID
+import java.util.*
 
 class TenantID : ID {
 
@@ -10,9 +11,10 @@ class TenantID : ID {
 	constructor(id: String) : super(id)
 
 	companion object {
-		// FIXME
+
 		fun generateByOrgId(orgId: String): TenantID {
-			return TenantID(orgId.hashCode())
+			val hash = UUID.nameUUIDFromBytes(orgId.toByteArray()).mostSignificantBits
+			return TenantID(hash)
 		}
 
 		fun generateEmpty(): TenantID {
