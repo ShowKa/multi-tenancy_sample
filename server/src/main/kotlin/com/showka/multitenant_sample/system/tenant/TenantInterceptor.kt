@@ -1,5 +1,6 @@
 package com.showka.multitenant_sample.system.tenant
 
+import com.showka.multitenant_sample.system.authentification.auth0.getOrganizationId
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.oauth2.jwt.Jwt
 import org.springframework.stereotype.Component
@@ -16,10 +17,17 @@ class TenantInterceptor : HandlerInterceptor {
 		val auth = context.authentication
 		val principal = auth.principal
 		if (principal is Jwt) {
-			val tenantId = principal.getTenantId()
-			if (tenantId != null) {
+			val orgId = principal.getOrganizationId()
+			if (orgId != null) {
+				val tenantId = TenantID.generateByOrgId(orgId)
 				TenantContext.set(tenantId)
+			} else {
+				val empty = TenantID.generateEmpty()
+				TenantContext.set(empty)
 			}
+		} else {
+			val empty = TenantID.generateEmpty()
+			TenantContext.set(empty)
 		}
 		return true
 	}

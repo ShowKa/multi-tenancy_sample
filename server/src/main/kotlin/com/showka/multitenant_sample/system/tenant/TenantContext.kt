@@ -4,7 +4,7 @@ class TenantContext {
 	companion object {
 		private val tenantHolder: ThreadLocal<TenantID> = InheritableThreadLocal()
 
-		fun get(): TenantID? {
+		fun get(): TenantID {
 			return tenantHolder.get()
 		}
 
