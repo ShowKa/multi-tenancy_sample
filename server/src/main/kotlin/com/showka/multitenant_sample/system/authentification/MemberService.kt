@@ -25,8 +25,8 @@ interface MemberService {
 	/**
 	 * add member.
 	 */
-	fun add(organization: Organization, userClaim: Claim) {
-		add(organization.id, userClaim.subject)
+	fun add(organization: Organization, user: User) {
+		add(organization.id, user.id)
 	}
 
 	/**

@@ -16,15 +16,15 @@ class RoleAssignServiceImpl : RoleAssignService {
 	private lateinit var roleService: RoleService
 
 	// override
-	override fun assign(role: Role, userClaimList: List<Claim>) {
+	override fun assign(role: Role, userList: List<User>) {
 		val roleId = roleService.getRoleId(role)
-		val userIds = userClaimList.map { it.subject } // auth api's user ID = subject
+		val userIds = userList.map { it.id } // auth api's user ID = subject
 		managementApi.roles().assignUsers(roleId, userIds).execute()
 	}
 
-	override fun assign(roleList: List<Role>, userClaim: Claim, organization: Organization) {
+	override fun assign(roleList: List<Role>, user: User, organization: Organization) {
 		val roleIds = roleList.map { roleService.getRoleId(it) }
 		val roles = Roles(roleIds)
-		managementApi.organizations().addRoles(organization.id, userClaim.subject, roles).execute()
+		managementApi.organizations().addRoles(organization.id, user.id, roles).execute()
 	}
 }

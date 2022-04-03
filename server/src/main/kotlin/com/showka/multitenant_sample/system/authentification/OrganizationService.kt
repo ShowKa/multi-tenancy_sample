@@ -21,8 +21,8 @@ interface OrganizationService {
 	/**
 	 * get User's organization
 	 */
-	fun getBelongsTo(userClaim: Claim): List<Organization> {
-		return getBelongsTo(userClaim.subject)
+	fun getBelongsTo(user: User): List<Organization> {
+		return getBelongsTo(user.id)
 	}
 
 	/**
