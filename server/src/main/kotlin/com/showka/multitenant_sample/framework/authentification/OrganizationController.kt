@@ -3,6 +3,8 @@ package com.showka.multitenant_sample.framework.authentification
 import com.showka.multitenant_sample.system.authentification.MemberService
 import com.showka.multitenant_sample.system.authentification.Organization
 import com.showka.multitenant_sample.system.authentification.OrganizationService
+import com.showka.multitenant_sample.system.authentification.RoleAssignService
+import com.showka.multitenant_sample.system.authentification.auth0.AuthenticatedUser
 import com.showka.multitenant_sample.system.authentification.auth0.getOrganizationId
 import com.showka.multitenant_sample.system.value.ID
 import org.springframework.beans.factory.annotation.Autowired
@@ -20,6 +22,9 @@ class OrganizationController {
 
 	@Autowired
 	private lateinit var memberService: MemberService
+
+	@Autowired
+	private lateinit var assignService: RoleAssignService
 
 	/**
 	 * get login user's organization
@@ -56,7 +61,9 @@ class OrganizationController {
 		val id = ID()
 		val orgId = "org" + id.value
 		val organization = organizationService.create(orgId, form.displayName)
-		memberService.add(organization.id, token.subject)
+		val user = AuthenticatedUser(token)
+		memberService.add(organization, user)
+		assignService.assign(UserRole.Administrator, user, organization)
 		return Response(organization)
 	}
 
