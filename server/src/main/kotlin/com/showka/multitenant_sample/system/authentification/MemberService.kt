@@ -34,4 +34,9 @@ interface MemberService {
 	 * @param userIdList subject of user claim.
 	 */
 	fun add(organizationId: String, userIdList: List<String>)
+
+	/**
+	 * assign role to organization's member.
+	 */
+	fun assign(organizationId: String, userId: String, roleId: String)
 }
