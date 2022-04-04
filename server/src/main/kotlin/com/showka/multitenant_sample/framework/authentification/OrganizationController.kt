@@ -1,7 +1,10 @@
 package com.showka.multitenant_sample.framework.authentification
 
+import com.showka.multitenant_sample.system.authentification.MemberService
 import com.showka.multitenant_sample.system.authentification.Organization
 import com.showka.multitenant_sample.system.authentification.OrganizationService
+import com.showka.multitenant_sample.system.authentification.RoleAssignService
+import com.showka.multitenant_sample.system.authentification.auth0.AuthenticatedUser
 import com.showka.multitenant_sample.system.authentification.auth0.getOrganizationId
 import com.showka.multitenant_sample.system.value.ID
 import org.springframework.beans.factory.annotation.Autowired
@@ -15,7 +18,13 @@ import org.springframework.web.bind.annotation.*
 class OrganizationController {
 
 	@Autowired
-	private lateinit var service: OrganizationService
+	private lateinit var organizationService: OrganizationService
+
+	@Autowired
+	private lateinit var memberService: MemberService
+
+	@Autowired
+	private lateinit var assignService: RoleAssignService
 
 	/**
 	 * get login user's organization
@@ -24,7 +33,7 @@ class OrganizationController {
 	@PreAuthorize("isAuthenticated()")
 	@ResponseBody
 	fun getAll(@AuthenticationPrincipal token: Jwt): List<Response> {
-		val organizations = service.getBelongsTo(token.subject)
+		val organizations = organizationService.getBelongsTo(token.subject)
 		return organizations.map {
 			Response(it)
 		}
@@ -38,7 +47,7 @@ class OrganizationController {
 	@ResponseBody
 	fun getMine(@AuthenticationPrincipal token: Jwt): Response {
 		val orgId = token.getOrganizationId()!!
-		val org = service.get(orgId)
+		val org = organizationService.get(orgId)
 		return Response(org)
 	}
 
@@ -51,8 +60,10 @@ class OrganizationController {
 	fun register(@AuthenticationPrincipal token: Jwt, @RequestBody form: Form): Response {
 		val id = ID()
 		val orgId = "org" + id.value
-		val organization = service.create(orgId, form.displayName)
-		service.addMember(organization.id, token.subject)
+		val organization = organizationService.create(orgId, form.displayName)
+		val user = AuthenticatedUser(token)
+		memberService.add(organization, user)
+		assignService.assign(UserRole.Administrator, user, organization)
 		return Response(organization)
 	}
 
@@ -64,7 +75,7 @@ class OrganizationController {
 	@ResponseBody
 	fun patch(@AuthenticationPrincipal token: Jwt, @RequestBody form: Form): Response {
 		val orgId = token.getOrganizationId()!!
-		val organization = service.updateDisplayName(orgId, form.displayName)
+		val organization = organizationService.updateDisplayName(orgId, form.displayName)
 		return Response(organization)
 	}
 
