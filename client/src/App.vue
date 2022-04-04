@@ -50,6 +50,11 @@ onMounted(async () => {
   if (!goRegister.value) {
     goSwitch.value = isAuthenticated.value && !current
   }
+  // store auth
+  if (isAuthenticated.value) {
+    $store.dispatch('auth/updateRoles')
+    $store.dispatch('auth/updatePermissions')
+  }
 })
 </script>
 
