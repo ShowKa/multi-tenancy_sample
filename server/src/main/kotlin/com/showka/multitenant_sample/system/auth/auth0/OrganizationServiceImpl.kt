@@ -27,24 +27,24 @@ class OrganizationServiceImpl : OrganizationService {
 			managementApi.organizations().addConnection(created.id, enabled).execute()
 		}
 		// return
-		return Organization(created.id, created.name, created.displayName)
+		return OrganizationImpl(created)
 	}
 
 	override fun get(organizationId: String): Organization {
 		val organization = managementApi.organizations().get(organizationId).execute()
-		return Organization(organization.id, organization.name, organization.displayName)
+		return OrganizationImpl(organization)
 	}
 
 	override fun getBelongsTo(userId: String): List<Organization> {
 		val organizations = managementApi.users().getOrganizations(userId, null).execute().items
 		return organizations.map {
-			Organization(it.id, it.name, it.displayName)
+			OrganizationImpl(it)
 		}
 	}
 
 	override fun getByName(identifiedName: String): Organization {
 		val getOne = managementApi.organizations().getByName(identifiedName).execute()
-		return Organization(getOne.id, getOne.name, getOne.displayName)
+		return OrganizationImpl(getOne)
 	}
 
 	override fun updateDisplayName(organizationId: String, newName: String): Organization {
@@ -52,7 +52,7 @@ class OrganizationServiceImpl : OrganizationService {
 		val updated = Auth0Org()
 		updated.name = got.name
 		updated.displayName = newName
-		managementApi.organizations().update(organizationId, updated).execute()
-		return Organization(organizationId, updated.name, updated.displayName)
+		val org = managementApi.organizations().update(organizationId, updated).execute()
+		return OrganizationImpl(org)
 	}
 }
