@@ -21,7 +21,7 @@ class PermissionController {
 	fun get(): Response {
 		val response = Response()
 		UserRole.values().forEach { role ->
-			val permissions = service.getPermissions(role)
+			val permissions = service.get(role)
 			response[role.name] = permissions.map { p -> p.name }
 		}
 		return response

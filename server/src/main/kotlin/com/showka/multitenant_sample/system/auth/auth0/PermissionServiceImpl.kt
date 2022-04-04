@@ -17,7 +17,7 @@ class PermissionServiceImpl : PermissionService {
 	@Autowired
 	private lateinit var roleService: RoleService
 
-	override fun getPermissions(role: Role): List<Permission> {
+	override fun get(role: Role): List<Permission> {
 		val roleId = roleService.getRoleId(role)
 		val permissions = managementApi.roles().listPermissions(roleId, null).execute()
 		return permissions.items.map {
