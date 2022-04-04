@@ -2,6 +2,7 @@ package com.showka.multitenant_sample.system.auth
 
 interface RoleAssignService {
 
+	// interface
 	fun assign(role: Role, userList: List<User>)
 
 	fun assign(roleList: List<Role>, user: User, organization: Organization)

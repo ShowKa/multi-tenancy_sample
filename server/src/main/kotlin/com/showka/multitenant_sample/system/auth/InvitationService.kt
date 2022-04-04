@@ -2,6 +2,7 @@ package com.showka.multitenant_sample.system.auth
 
 interface InvitationService {
 
+	// interface
 	fun invite(
 		clientId: String, organizationId: String,
 		inviterName: String, inviteeMailAddress: String,

@@ -18,13 +18,13 @@ class RoleAssignServiceImpl : RoleAssignService {
 
 	// override
 	override fun assign(role: Role, userList: List<User>) {
-		val roleId = roleService.getRoleId(role)
+		val roleId = roleService.getId(role)
 		val userIds = userList.map { it.id } // auth api's user ID = subject
 		managementApi.roles().assignUsers(roleId, userIds).execute()
 	}
 
 	override fun assign(roleList: List<Role>, user: User, organization: Organization) {
-		val roleIds = roleList.map { roleService.getRoleId(it) }
+		val roleIds = roleList.map { roleService.getId(it) }
 		val roles = Roles(roleIds)
 		managementApi.organizations().addRoles(organization.id, user.id, roles).execute()
 	}

@@ -18,7 +18,7 @@ class RoleServiceImpl : RoleService {
 	/** role map < role's name, role's ID > */
 	private val roleMap: HashMap<String, Auth0_Role> = hashMapOf()
 
-	override fun getRoleId(role: Role): String {
+	override fun getId(role: Role): String {
 		return this.getRole(role).id
 	}
 

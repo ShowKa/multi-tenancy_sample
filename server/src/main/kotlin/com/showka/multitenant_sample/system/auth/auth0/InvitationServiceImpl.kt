@@ -32,7 +32,7 @@ class InvitationServiceImpl : InvitationService {
 		// get role id
 		val roleIds = mutableListOf<String>()
 		roleList.forEach {
-			val id = roleService.getRoleId(it)
+			val id = roleService.getId(it)
 			roleIds.add(id)
 		}
 		auth0Invitation.roles = Roles(roleIds)
