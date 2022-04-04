@@ -19,7 +19,7 @@ class InvitationController {
 	 * invite new member.
 	 */
 	@PostMapping
-	@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("hasAuthority('update:settings')")
 	@ResponseBody
 	fun invite(
 		@AuthenticationPrincipal token: Jwt,

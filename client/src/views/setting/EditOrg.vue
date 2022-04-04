@@ -1,7 +1,12 @@
 <template>
   <div class="setting-org__form">
     <div>{{ organization.displayName }}</div>
-    <a class="setting-org__form__link" @click="show = true">edit</a>
+    <a
+      class="setting-org__form__link"
+      @click="show = true"
+      v-if="$can('update', 'settings')"
+      >edit</a
+    >
   </div>
   <Modal v-if="show" class="setting-org__modal">
     <template v-slot:header>
