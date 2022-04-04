@@ -5,7 +5,12 @@
     <EditOrg />
     <label>members</label>
     <MemberList />
-    <a class="setting-top__link" @click="invite">inviete a member</a>
+    <a
+      class="setting-top__link"
+      @click="invite"
+      v-if="$can('update', 'settings')"
+      >inviete a member</a
+    >
     <Invite ref="InviteView" />
   </div>
 </template>

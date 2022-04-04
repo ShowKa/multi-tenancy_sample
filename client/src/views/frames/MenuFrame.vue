@@ -3,7 +3,7 @@
     <Menu label="home" path="/home">
       <HomeIcon icon-size="26" />
     </Menu>
-    <Menu label="setting" path="/setting">
+    <Menu label="setting" path="/setting" v-if="$can('read', 'settings')">
       <SettingIcon icon-size="26" />
     </Menu>
   </div>

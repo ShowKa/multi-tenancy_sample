@@ -1,5 +1,7 @@
 import { createStore } from 'vuex'
+import { useAuth } from '@/plugins/auth'
 import Organization from '@/models/Organization'
+import Permissions from '@/models/Permissions'
 
 const organization = {
   namespaced: true,
@@ -34,8 +36,36 @@ const organization = {
   },
 }
 
+const auth = {
+  namespaced: true,
+  state: () => ({
+    roles: [],
+    permissions: {}
+  }),
+  mutations: {
+    roles(state, roles) {
+      state.roles = roles
+    },
+    permissions(state, permissions) {
+      state.permissions = permissions
+    },
+  },
+  actions: {
+    async updateRoles({ commit }) {
+      const $auth = useAuth()
+      const roles = await $auth.getUserRoles()
+      commit('roles', roles);
+    },
+    async updatePermissions({ commit }) {
+      const permissions = await Permissions.get()
+      commit('permissions', permissions);
+    }
+  },
+}
+
 export default createStore({
   modules: {
-    organization: organization
+    organization: organization,
+    auth: auth
   }
 })

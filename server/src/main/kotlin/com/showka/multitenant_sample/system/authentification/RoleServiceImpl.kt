@@ -20,14 +20,6 @@ class RoleServiceImpl : RoleService {
 		return this.getRole(role).id
 	}
 
-	override fun getPermissions(role: Role): List<Permission> {
-		val roleId = this.getRoleId(role)
-		val permissions = managementApi.roles().listPermissions(roleId, null).execute()
-		return permissions.items.map {
-			Permission(it.name)
-		}
-	}
-
 	// private
 	private fun getRole(role: Role): Auth0_Role {
 		if (roleMap.isEmpty()) {

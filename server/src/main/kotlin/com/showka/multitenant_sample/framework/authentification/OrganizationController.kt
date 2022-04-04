@@ -71,7 +71,7 @@ class OrganizationController {
 	 * update organization name.
 	 */
 	@PatchMapping
-	@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("hasAuthority('update:settings')")
 	@ResponseBody
 	fun patch(@AuthenticationPrincipal token: Jwt, @RequestBody form: Form): Response {
 		val orgId = token.getOrganizationId()!!

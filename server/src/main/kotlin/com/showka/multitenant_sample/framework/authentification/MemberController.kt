@@ -23,7 +23,7 @@ class MemberController {
 	 * get login user's organization
 	 */
 	@GetMapping
-	@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("hasAuthority('read:settings')")
 	@ResponseBody
 	fun getAll(@AuthenticationPrincipal token: Jwt): List<Response> {
 		val orgId = token.getOrganizationId()!!
