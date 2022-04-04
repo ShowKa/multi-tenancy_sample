@@ -1,4 +1,4 @@
-package com.showka.multitenant_sample.system.authentification
+package com.showka.multitenant_sample.system.auth
 
 import com.auth0.client.mgmt.ManagementAPI
 import com.showka.multitenant_sample.system.exception.SystemException

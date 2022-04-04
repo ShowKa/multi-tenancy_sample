@@ -1,7 +1,7 @@
 package com.showka.multitenant_sample.app
 
-import com.showka.multitenant_sample.system.authentification.InvitationService
-import com.showka.multitenant_sample.system.authentification.auth0.getOrganizationId
+import com.showka.multitenant_sample.system.auth.InvitationService
+import com.showka.multitenant_sample.system.auth.auth0.getOrganizationId
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.annotation.AuthenticationPrincipal

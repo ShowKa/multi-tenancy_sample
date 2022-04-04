@@ -1,6 +1,6 @@
 package com.showka.multitenant_sample.app
 
-import com.showka.multitenant_sample.system.authentification.PermissionService
+import com.showka.multitenant_sample.system.auth.PermissionService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.GetMapping

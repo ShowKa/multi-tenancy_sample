@@ -1,6 +1,6 @@
 package com.showka.multitenant_sample.app
 
-import com.showka.multitenant_sample.system.authentification.Role
+import com.showka.multitenant_sample.system.auth.Role
 
 enum class UserRole(private val roleName: String) : Role {
 	Administrator("Administrator"),

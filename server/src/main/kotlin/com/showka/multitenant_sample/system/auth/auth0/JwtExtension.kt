@@ -1,4 +1,4 @@
-package com.showka.multitenant_sample.system.authentification.auth0
+package com.showka.multitenant_sample.system.auth.auth0
 
 import org.springframework.security.oauth2.jwt.Jwt
 

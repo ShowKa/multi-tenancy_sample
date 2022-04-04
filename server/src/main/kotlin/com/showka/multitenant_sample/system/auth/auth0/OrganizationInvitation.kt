@@ -1,8 +1,8 @@
-package com.showka.multitenant_sample.system.authentification.auth0
+package com.showka.multitenant_sample.system.auth.auth0
 
-import com.showka.multitenant_sample.system.authentification.Invitation
-import com.showka.multitenant_sample.system.authentification.Organization
-import com.showka.multitenant_sample.system.authentification.Role
+import com.showka.multitenant_sample.system.auth.Invitation
+import com.showka.multitenant_sample.system.auth.Organization
+import com.showka.multitenant_sample.system.auth.Role
 import com.showka.multitenant_sample.system.value.MailAddress
 
 class OrganizationInvitation(

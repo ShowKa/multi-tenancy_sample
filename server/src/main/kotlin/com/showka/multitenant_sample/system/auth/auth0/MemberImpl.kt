@@ -1,6 +1,6 @@
-package com.showka.multitenant_sample.system.authentification.auth0
+package com.showka.multitenant_sample.system.auth.auth0
 
-import com.showka.multitenant_sample.system.authentification.Member
+import com.showka.multitenant_sample.system.auth.Member
 import com.showka.multitenant_sample.system.value.MailAddress
 import com.auth0.json.mgmt.organizations.Member as Auth0Member
 

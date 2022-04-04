@@ -1,6 +1,6 @@
 package com.showka.multitenant_sample.system.tenant
 
-import com.showka.multitenant_sample.system.authentification.auth0.getOrganizationId
+import com.showka.multitenant_sample.system.auth.auth0.getOrganizationId
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.oauth2.jwt.Jwt
 import org.springframework.stereotype.Component

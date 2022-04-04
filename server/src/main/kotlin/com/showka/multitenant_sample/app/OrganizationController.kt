@@ -1,11 +1,11 @@
 package com.showka.multitenant_sample.app
 
-import com.showka.multitenant_sample.system.authentification.MemberService
-import com.showka.multitenant_sample.system.authentification.Organization
-import com.showka.multitenant_sample.system.authentification.OrganizationService
-import com.showka.multitenant_sample.system.authentification.RoleAssignService
-import com.showka.multitenant_sample.system.authentification.auth0.AuthenticatedUser
-import com.showka.multitenant_sample.system.authentification.auth0.getOrganizationId
+import com.showka.multitenant_sample.system.auth.MemberService
+import com.showka.multitenant_sample.system.auth.Organization
+import com.showka.multitenant_sample.system.auth.OrganizationService
+import com.showka.multitenant_sample.system.auth.RoleAssignService
+import com.showka.multitenant_sample.system.auth.auth0.AuthenticatedUser
+import com.showka.multitenant_sample.system.auth.auth0.getOrganizationId
 import com.showka.multitenant_sample.system.value.ID
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.access.prepost.PreAuthorize

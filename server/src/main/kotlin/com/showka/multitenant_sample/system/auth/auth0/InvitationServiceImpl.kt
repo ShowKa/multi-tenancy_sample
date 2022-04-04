@@ -1,12 +1,12 @@
-package com.showka.multitenant_sample.system.authentification.auth0
+package com.showka.multitenant_sample.system.auth.auth0
 
 import com.auth0.client.mgmt.ManagementAPI
 import com.auth0.json.mgmt.organizations.Invitee
 import com.auth0.json.mgmt.organizations.Inviter
 import com.auth0.json.mgmt.organizations.Roles
-import com.showka.multitenant_sample.system.authentification.InvitationService
-import com.showka.multitenant_sample.system.authentification.Role
-import com.showka.multitenant_sample.system.authentification.RoleService
+import com.showka.multitenant_sample.system.auth.InvitationService
+import com.showka.multitenant_sample.system.auth.Role
+import com.showka.multitenant_sample.system.auth.RoleService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import com.auth0.json.mgmt.organizations.Invitation as Auth0_Invitation
