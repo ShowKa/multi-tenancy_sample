@@ -1,8 +1,9 @@
-package com.showka.multitenant_sample.system.auth
+package com.showka.multitenant_sample.system.auth.auth0
 
 import com.auth0.client.auth.AuthAPI
 import com.auth0.exception.APIException
 import com.auth0.exception.Auth0Exception
+import com.showka.multitenant_sample.system.auth.PasswordService
 import com.showka.multitenant_sample.system.exception.SystemException
 import com.showka.multitenant_sample.system.value.MailAddress
 import org.springframework.beans.factory.annotation.Autowired

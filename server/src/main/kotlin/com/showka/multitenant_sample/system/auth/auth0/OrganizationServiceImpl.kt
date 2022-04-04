@@ -1,7 +1,9 @@
-package com.showka.multitenant_sample.system.auth
+package com.showka.multitenant_sample.system.auth.auth0
 
 import com.auth0.client.mgmt.ManagementAPI
 import com.auth0.json.mgmt.organizations.EnabledConnection
+import com.showka.multitenant_sample.system.auth.Organization
+import com.showka.multitenant_sample.system.auth.OrganizationService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import com.auth0.json.mgmt.organizations.Organization as Auth0Org
