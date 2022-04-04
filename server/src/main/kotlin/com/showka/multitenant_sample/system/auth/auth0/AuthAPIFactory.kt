@@ -1,4 +1,4 @@
-package com.showka.multitenant_sample.system.auth
+package com.showka.multitenant_sample.system.auth.auth0
 
 import com.auth0.client.HttpOptions
 import com.auth0.client.auth.AuthAPI
