@@ -4,7 +4,7 @@ import com.showka.multitenant_sample.system.auth.Member
 import com.showka.multitenant_sample.system.value.MailAddress
 import com.auth0.json.mgmt.organizations.Member as Auth0Member
 
-class MemberImpl(member: Auth0Member) : Member {
+class OrganizationMember(member: Auth0Member) : Member {
 
 	override val id: String
 	override val name: String

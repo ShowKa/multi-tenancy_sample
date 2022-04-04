@@ -16,7 +16,7 @@ class MemberServiceImpl : MemberService {
 
 	override fun getOf(organizationId: String): List<Member> {
 		val members = managementApi.organizations().getMembers(organizationId, null).execute().items
-		return members.map { MemberImpl(it) }
+		return members.map { OrganizationMember(it) }
 	}
 
 	override fun add(organizationId: String, userIdList: List<String>) {
