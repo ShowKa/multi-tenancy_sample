@@ -21,8 +21,34 @@ interface OrganizationService {
 	/**
 	 * get User's organization
 	 */
-	fun getBelongsTo(user: User): List<Organization> {
-		return getBelongsTo(user.id)
+	fun getBelongsTo(userClaim: Claim): List<Organization> {
+		return getBelongsTo(userClaim.subject)
+	}
+
+	/**
+	 * add member.
+	 * @param userId subject of user claim.
+	 */
+	fun addMember(organizationId: String, userId: String)
+
+	/**
+	 * add member.
+	 */
+	fun addMember(organization: Organization, userClaim: Claim) {
+		addMember(organization.id, userClaim.subject)
+	}
+
+	/**
+	 * add members.
+	 * @param userIdList subject of user claim.
+	 */
+	fun addMembers(organizationId: String, userIdList: List<String>)
+
+	/**
+	 * add members.
+	 */
+	fun addMembers(organization: Organization, userList: List<Claim>) {
+		addMembers(organization.id, userList.map { it.subject })
 	}
 
 	/**

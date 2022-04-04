@@ -2,6 +2,7 @@ package com.showka.multitenant_sample.system.authentification
 
 import com.auth0.client.mgmt.ManagementAPI
 import com.auth0.json.mgmt.organizations.EnabledConnection
+import com.auth0.json.mgmt.organizations.Members
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import com.auth0.json.mgmt.organizations.Organization as Auth0Org
@@ -38,6 +39,15 @@ class OrganizationServiceImpl : OrganizationService {
 		return organizations.map {
 			Organization(it.id, it.name, it.displayName)
 		}
+	}
+
+	override fun addMember(organizationId: String, userId: String) {
+		val list = listOf(userId)
+		this.addMembers(organizationId, list)
+	}
+
+	override fun addMembers(organizationId: String, userIdList: List<String>) {
+		managementApi.organizations().addMembers(organizationId, Members(userIdList)).execute()
 	}
 
 	override fun getByName(identifiedName: String): Organization {
