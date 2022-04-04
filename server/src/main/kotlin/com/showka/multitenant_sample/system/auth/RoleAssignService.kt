@@ -3,28 +3,24 @@ package com.showka.multitenant_sample.system.auth
 interface RoleAssignService {
 
 	// interface
-	fun assign(role: Role, userList: List<User>)
+	fun assign(role: Role, userIds: List<String>)
 
-	fun assign(roleList: List<Role>, user: User, organization: Organization)
+	fun assign(roleList: List<Role>, userId: String, organizationId: String)
 
 	// default
 	fun assign(role: Role, user: User) {
-		this.assign(role, listOf(user))
+		assignUsers(role, listOf(user))
 	}
 
-	fun assign(roleList: List<Role>, user: User) {
-		roleList.forEach {
-			this.assign(it, user)
-		}
-	}
-
-	fun assign(roleList: List<Role>, userList: List<User>) {
-		roleList.forEach {
-			this.assign(it, userList)
-		}
+	fun assignUsers(role: Role, userList: List<User>) {
+		assign(role, userList.map { it.id })
 	}
 
 	fun assign(role: Role, user: User, organization: Organization) {
-		this.assign(listOf(role), user, organization)
+		assign(listOf(role), user, organization)
+	}
+
+	fun assign(roleList: List<Role>, user: User, organization: Organization) {
+		assign(roleList, user.id, organization.id)
 	}
 }
