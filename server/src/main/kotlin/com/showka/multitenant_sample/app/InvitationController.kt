@@ -1,7 +1,6 @@
 package com.showka.multitenant_sample.app
 
 import com.showka.multitenant_sample.system.auth.InvitationService
-import com.showka.multitenant_sample.system.auth.auth0.getOrganizationId
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.annotation.AuthenticationPrincipal
@@ -25,7 +24,7 @@ class InvitationController {
 		@AuthenticationPrincipal token: Jwt,
 		@RequestBody form: Form
 	): Response {
-		val clientId = token.getClaimAsString("azp")
+		val clientId = token.getClientId()
 		val organizationId = token.getOrganizationId()!!
 		val id = service.invite(clientId, organizationId, form.inviterName, form.inviteeMailAddress, UserRole.Operator)
 		return Response(id)

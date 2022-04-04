@@ -5,7 +5,6 @@ import com.showka.multitenant_sample.system.auth.Organization
 import com.showka.multitenant_sample.system.auth.OrganizationService
 import com.showka.multitenant_sample.system.auth.RoleAssignService
 import com.showka.multitenant_sample.system.auth.auth0.AuthenticatedUser
-import com.showka.multitenant_sample.system.auth.auth0.getOrganizationId
 import com.showka.multitenant_sample.system.value.ID
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.access.prepost.PreAuthorize
