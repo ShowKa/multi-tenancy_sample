@@ -1,4 +1,4 @@
-package com.showka.multitenant_sample.framework.authentification
+package com.showka.multitenant_sample.app
 
 import com.showka.multitenant_sample.system.authentification.Role
 
