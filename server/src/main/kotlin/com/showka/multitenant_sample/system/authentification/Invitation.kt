@@ -7,5 +7,5 @@ interface Invitation {
 	val organization: Organization
 	val inviterName: String
 	val inviteeMailAddress: MailAddress
-	val roles: List<Role>?
+	val roles: List<Role>
 }

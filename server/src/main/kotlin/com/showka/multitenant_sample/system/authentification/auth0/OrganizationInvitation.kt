@@ -5,7 +5,7 @@ import com.showka.multitenant_sample.system.authentification.Organization
 import com.showka.multitenant_sample.system.authentification.Role
 import com.showka.multitenant_sample.system.value.MailAddress
 
-class InvitationAuth0(
+class OrganizationInvitation(
 	override val clientId: String,
 	override val organization: Organization,
 	override val inviterName: String,
