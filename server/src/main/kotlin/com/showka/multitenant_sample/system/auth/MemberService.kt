@@ -2,11 +2,19 @@ package com.showka.multitenant_sample.system.auth
 
 interface MemberService {
 
+	// interface
 	/**
 	 * get members of the organization.
 	 */
 	fun getOf(organizationId: String): List<Member>
 
+	/**
+	 * add members.
+	 * @param userIdList subject of user claim.
+	 */
+	fun add(organizationId: String, userIdList: List<String>)
+
+	// default
 	/**
 	 * get members of the organization.
 	 */
@@ -28,15 +36,4 @@ interface MemberService {
 	fun add(organization: Organization, user: User) {
 		add(organization.id, user.id)
 	}
-
-	/**
-	 * add members.
-	 * @param userIdList subject of user claim.
-	 */
-	fun add(organizationId: String, userIdList: List<String>)
-
-	/**
-	 * assign role to organization's member.
-	 */
-	fun assign(organizationId: String, userId: String, roleId: String)
 }
