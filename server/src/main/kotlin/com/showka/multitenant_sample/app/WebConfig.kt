@@ -1,6 +1,5 @@
 package com.showka.multitenant_sample.app
 
-import com.showka.multitenant_sample.system.tenant.TenantInterceptor
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry
