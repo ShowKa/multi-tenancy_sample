@@ -6,7 +6,6 @@ import com.auth0.json.mgmt.organizations.Inviter
 import com.auth0.json.mgmt.organizations.Roles
 import com.showka.multitenant_sample.system.auth.InvitationService
 import com.showka.multitenant_sample.system.auth.Role
-import com.showka.multitenant_sample.system.auth.RoleService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import com.auth0.json.mgmt.organizations.Invitation as Auth0_Invitation
@@ -17,9 +16,6 @@ class InvitationServiceImpl : InvitationService {
 	@Autowired
 	private lateinit var managementApi: ManagementAPI
 
-	@Autowired
-	private lateinit var roleService: RoleService
-
 	override fun invite(
 		clientId: String, organizationId: String,
 		inviterName: String, inviteeMailAddress: String,
@@ -29,12 +25,8 @@ class InvitationServiceImpl : InvitationService {
 		val inviter = Inviter(inviterName)
 		val invitee = Invitee(inviteeMailAddress)
 		val auth0Invitation = Auth0_Invitation(inviter, invitee, clientId)
-		// get role id
-		val roleIds = mutableListOf<String>()
-		roleList.forEach {
-			val id = roleService.getId(it)
-			roleIds.add(id)
-		}
+		// set role id
+		val roleIds = roleList.map { it.getId() }
 		auth0Invitation.roles = Roles(roleIds)
 		val result =
 			managementApi.organizations().createInvitation(organizationId, auth0Invitation).execute()

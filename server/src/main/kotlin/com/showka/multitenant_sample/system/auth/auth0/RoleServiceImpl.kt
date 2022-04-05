@@ -1,7 +1,6 @@
 package com.showka.multitenant_sample.system.auth.auth0
 
 import com.auth0.client.mgmt.ManagementAPI
-import com.showka.multitenant_sample.system.auth.Role
 import com.showka.multitenant_sample.system.auth.RoleService
 import com.showka.multitenant_sample.system.exception.SystemException
 import org.springframework.beans.factory.annotation.Autowired
@@ -18,12 +17,12 @@ class RoleServiceImpl : RoleService {
 	/** role map < role's name, role's ID > */
 	private val roleMap: HashMap<String, Auth0_Role> = hashMapOf()
 
-	override fun getId(role: Role): String {
-		return this.getRole(role).id
+	override fun getId(name: String): String {
+		return this.getRole(name).id
 	}
 
 	// private
-	private fun getRole(role: Role): Auth0_Role {
+	private fun getRole(name: String): Auth0_Role {
 		if (roleMap.isEmpty()) {
 			// if empty -> cash role's information
 			val rolesEntity = managementApi.roles().list(null).execute()
@@ -31,9 +30,9 @@ class RoleServiceImpl : RoleService {
 				this.roleMap[it.name] = it
 			}
 		}
-		return roleMap[role.getName()]
+		return roleMap[name]
 			?: throw SystemException(
-				"ロールが存在しません: ${role.getName()}: \n" +
+				"ロールが存在しません: ${name}: \n" +
 					"Auth Management APIより取得したロールは次のとおりです。: $roleMap"
 			)
 	}
