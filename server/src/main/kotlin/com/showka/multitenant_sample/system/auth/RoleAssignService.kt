@@ -3,9 +3,9 @@ package com.showka.multitenant_sample.system.auth
 interface RoleAssignService {
 
 	// interface
-	fun assign(role: Role, userIds: List<String>)
+	fun assign(roleId: String, userIds: List<String>)
 
-	fun assign(roleList: List<Role>, userId: String, organizationId: String)
+	fun assign(roleIds: List<String>, userId: String, organizationId: String)
 
 	// default
 	fun assign(role: Role, user: User) {
@@ -13,7 +13,7 @@ interface RoleAssignService {
 	}
 
 	fun assignUsers(role: Role, userList: List<User>) {
-		assign(role, userList.map { it.id })
+		assign(role.getId(), userList.map { it.id })
 	}
 
 	fun assign(role: Role, user: User, organization: Organization) {
@@ -21,6 +21,6 @@ interface RoleAssignService {
 	}
 
 	fun assign(roleList: List<Role>, user: User, organization: Organization) {
-		assign(roleList, user.id, organization.id)
+		assign(roleList.map { it.getId() }, user.id, organization.id)
 	}
 }
