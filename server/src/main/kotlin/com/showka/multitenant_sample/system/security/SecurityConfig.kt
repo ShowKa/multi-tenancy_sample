@@ -36,7 +36,6 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
 	override fun configure(http: HttpSecurity) {
 		http
 			.authorizeRequests()
-			.antMatchers("/h2-console/**").permitAll() // H2DBデバッグ用
 			.anyRequest().authenticated()
 		http
 			.oauth2ResourceServer()
