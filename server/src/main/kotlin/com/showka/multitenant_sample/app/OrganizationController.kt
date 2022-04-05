@@ -5,12 +5,12 @@ import com.showka.multitenant_sample.system.auth.Organization
 import com.showka.multitenant_sample.system.auth.OrganizationService
 import com.showka.multitenant_sample.system.auth.RoleAssignService
 import com.showka.multitenant_sample.system.auth.auth0.AuthenticatedUser
-import com.showka.multitenant_sample.system.value.ID
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.oauth2.jwt.Jwt
 import org.springframework.web.bind.annotation.*
+import java.security.SecureRandom
 
 @RestController
 @RequestMapping("/organizations")
@@ -57,9 +57,9 @@ class OrganizationController {
 	@PreAuthorize("isAuthenticated()")
 	@ResponseBody
 	fun register(@AuthenticationPrincipal token: Jwt, @RequestBody form: Form): Response {
-		val id = ID()
-		val orgId = "org" + id.value
-		val organization = organizationService.create(orgId, form.displayName)
+		val random = SecureRandom().nextLong()
+		val identifierName = "org$random"
+		val organization = organizationService.create(identifierName, form.displayName)
 		val user = AuthenticatedUser(token)
 		memberService.add(organization, user)
 		assignService.assign(UserRole.Administrator, user, organization)
