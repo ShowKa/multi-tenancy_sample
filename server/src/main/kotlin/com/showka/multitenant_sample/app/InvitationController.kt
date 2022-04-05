@@ -26,7 +26,13 @@ class InvitationController {
 	): Response {
 		val clientId = token.getClientId()
 		val organizationId = token.getOrganizationId()!!
-		val id = service.invite(clientId, organizationId, form.inviterName, form.inviteeMailAddress, UserRole.Operator)
+		val id = service.invite(
+			clientId,
+			organizationId,
+			form.inviterName,
+			form.inviteeMailAddress,
+			UserRole.Operator.getId()
+		)
 		return Response(id)
 	}
 

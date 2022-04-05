@@ -6,7 +6,7 @@ interface InvitationService {
 	fun invite(
 		clientId: String, organizationId: String,
 		inviterName: String, inviteeMailAddress: String,
-		roleList: List<Role>
+		roleIds: List<String>
 	): String
 
 	// default
@@ -14,7 +14,7 @@ interface InvitationService {
 		return this.invite(
 			invitation.clientId, invitation.organization.id,
 			invitation.inviterName, invitation.inviteeMailAddress.string,
-			invitation.roles
+			invitation.roles.map { it.getId() }
 		)
 	}
 
@@ -36,12 +36,12 @@ interface InvitationService {
 		organizationId: String,
 		inviterName: String,
 		inviteeMailAddress: String,
-		role: Role
+		roleId: String
 	): String {
 		return this.invite(
 			clientId, organizationId,
 			inviterName, inviteeMailAddress,
-			listOf(role)
+			listOf(roleId)
 		)
 	}
 }
