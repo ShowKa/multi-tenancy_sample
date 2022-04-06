@@ -13,11 +13,8 @@
     "@auth0/auth0-spa-js": "^1.18.0",
     "axios": "^0.22.0",
     "core-js": "^3.8.3",
-    "encoding-japanese": "^1.0.30",
     "mitt": "^3.0.0",
-    "vee-validate": "^4.5.2",
     "vue": "^3.2.6",
-    "vue-papa-parse": "^3.0.4",
     "vue-router": "^4.0.3",
     "vuex": "^4.0.0"
   },
