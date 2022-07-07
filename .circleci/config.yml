@@ -1,0 +1,28 @@
+# Java Gradle CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-java/ for more details
+#
+version: 2.1
+
+orbs:
+  aws-ecr: circleci/aws-ecr@8.1.2
+
+workflows:
+  build_and_push_image:
+    jobs:
+      - aws-ecr/build-and-push-image:
+          registry-id: AWS_ECR_REGISTRY_ID
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          region: "${AWS_REGION}"
+          path: ./server
+          dockerfile: /Dockerfile
+          no-output-timeout: 20m
+          create-repo: true
+          repo: ambos/multi-tenancy_server
+          skip-when-tags-exist: false
+          tag: latest,${CIRCLE_BUILD_NUM}
+          # ci only for release
+          filters:
+            branches:
+              only: release
