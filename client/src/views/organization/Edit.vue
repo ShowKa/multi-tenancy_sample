@@ -9,7 +9,7 @@
 <script setup>
 import { onMounted, reactive, defineEmits } from 'vue'
 import { useStore } from 'vuex'
-import Organization from '@/models/Organization'
+import Organization from '@/models/auth/Organization'
 import SubmitButton from '@/components/input/SubmitButton.vue'
 import { showSuccess } from '@/components/message/useMessage'
 // emit

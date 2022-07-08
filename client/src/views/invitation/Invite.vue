@@ -20,7 +20,7 @@
 
 <script setup>
 import { inject, onMounted, reactive, ref, defineExpose } from 'vue'
-import Invitations from '@/models/Invitations'
+import Invitations from '@/models/auth/Invitations'
 import Modal from '@/components/modal/Modal.vue'
 import SubmitButton from '@/components/input/SubmitButton.vue'
 import { showSuccess } from '@/components/message/useMessage'
