@@ -1,4 +1,5 @@
 import MockAdapter from 'axios-mock-adapter'
+const auth = process.env.VUE_APP_API_AUTH_CONTEXT
 
 const organization01 = {
   id: 'org_ZsZwfWxN6ZT02w2h',
@@ -23,13 +24,17 @@ const member02 = {
   mailAddress: 'member2@org.com',
 }
 
+const admin = ['read:settings', 'update:settings']
+const operator = ['read:settings']
+
 export default {
   run: client => {
     const mock = new MockAdapter(client)
-    mock.onGet('/organizations').reply(200, [organization01, organization02])
-    mock.onGet('/organizations/mine').reply(200, organization01)
-    mock.onPost('/organizations').reply(200, organization01)
-    mock.onPatch('/organizations').reply(200, organization01)
-    mock.onGet('/members').reply(200, [member01, member02])
+    mock.onGet(`${auth}/organizations`).reply(200, [organization01, organization02])
+    mock.onGet(`${auth}/organizations/mine`).reply(200, organization01)
+    mock.onPost(`${auth}/organizations`).reply(200, organization01)
+    mock.onPatch(`${auth}/organizations`).reply(200, organization01)
+    mock.onGet(`${auth}/members`).reply(200, [member01, member02])
+    mock.onGet(`${auth}/permissions`).reply(200, { Administrator: admin, Operator: operator })
   }
 }
