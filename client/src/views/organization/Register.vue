@@ -8,7 +8,7 @@
 
 <script setup>
 import { inject, reactive } from 'vue'
-import Organization from '@/models/Organization'
+import Organization from '@/models/auth/Organization'
 import SubmitButton from '@/components/input/SubmitButton.vue'
 import { useRouter } from 'vue-router'
 // inject plugin

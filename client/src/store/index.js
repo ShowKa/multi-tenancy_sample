@@ -1,7 +1,7 @@
 import { createStore } from 'vuex'
 import { useAuth } from '@/plugins/auth'
-import Organization from '@/models/Organization'
-import Permissions from '@/models/Permissions'
+import Organization from '@/models/auth/Organization'
+import Permissions from '@/models/auth/Permissions'
 
 const organization = {
   namespaced: true,

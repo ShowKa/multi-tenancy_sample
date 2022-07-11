@@ -9,7 +9,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import Members from '@/models/Members'
+import Members from '@/models/auth/Members'
 // data
 const dataList = ref([])
 // life cycle event
