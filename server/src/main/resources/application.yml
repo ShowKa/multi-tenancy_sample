@@ -1,5 +1,5 @@
 server:
-  port: 9000
+  port: 9001
 
 logging:
   level:
@@ -35,12 +35,12 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: https://mts-dev-01.jp.auth0.com/
+          issuer-uri: https://spp-dev-01.jp.auth0.com/
 
 auth0:
-  audience: https://api.mts-dev-01/
-  domain: mts-dev-01.jp.auth0.com
-  client-id: V0gH6JrlRhTHbob4wuXOkYpY2nZcR0TP
+  audience: https://api.spp-dev-01/
+  domain: spp-dev-01.jp.auth0.com
+  client-id: hxrMNU5ndbXQxmOdbeOMlGVOeG8aQgrn
 
 mts:
   file:
